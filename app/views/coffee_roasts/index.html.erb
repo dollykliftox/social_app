@@ -1,0 +1,31 @@
+<h3>Lists</h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+     <th>Action</th>
+  </tr>
+  <tbody>
+    <% @coffee_roasts.each do |cr| %>
+      <tr>
+        <td><%= cr.roast_name %></td>
+        <td><%= cr.roast_description %></td>
+        <td><%= link_to 'Show', coffee_roast_path(cr)%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>New Roast</h3>
+<%= form_tag coffee_roasts_path  do %>
+  <% if flash[:error].present? %>
+    <div id="error_explanation">
+      <p><%= flash[:error] %></p>
+    </div>
+  <%end%>
+  <label class="amount">roast_name </label>
+  <label><%=text_field_tag :roast_name %></label><br>
+  <label class="amount">roast_description </label>
+  <label><%=text_field_tag :roast_description %></label><br>
+  <%= submit_tag%>
+<% end %>

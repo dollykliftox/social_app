@@ -1,0 +1,2 @@
+class CoffeeRoast < ApplicationRecord
+end
