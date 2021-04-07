@@ -24,6 +24,12 @@ class CoffeeRoastsController < ApplicationController
     @coffee_roast = CoffeeRoast.find(params[:id])
   end
 
+  def destroy
+    @coffee_roast = CoffeeRoast.find(params[:id])
+    @coffee_roast.destroy
+    redirect_to coffee_roasts_path
+  end
+
   private
 
   def coffee_roast_params
