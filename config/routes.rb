@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :posts
   devise_for :users,
              controllers: {
                omniauth_callbacks: 'users/omniauth_callbacks'
@@ -16,4 +17,5 @@ Rails.application.routes.draw do
   post :capture_order, :to => 'orders#capture_order'
   resources :charges
   resources :coffee_roasts 
+  resources :posts
 end
