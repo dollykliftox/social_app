@@ -1,51 +1,48 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   before_action :paypal_init, except: [:index]
 
-  def index
-  end
+  def index; end
 
   def create_order
     # PAYPAL CREATE ORDER
     debugger
     price = '100.00'
-    request = PayPalCheckoutSdk::Orders::OrdersCreateRequest::new
+    request = PayPalCheckoutSdk::Orders::OrdersCreateRequest.new
     request.request_body({
-      :intent => 'CAPTURE',
-      :purchase_units => [
-        {
-          :amount => {
-            :currency_code => 'INR',
-            :value => price
-          }
-        }
-      ]
-    })
+                           intent: 'CAPTURE',
+                           purchase_units: [
+                             {
+                               amount: {
+                                 currency_code: 'INR',
+                                 value: price
+                               }
+                             }
+                           ]
+                         })
     begin
       response = @client.execute request
       order = Order.new
       order.price = price.to_i
       order.token = response.result.id
-      if order.save
-        return render :json => {:token => response.result.id}, :status => :ok
-      end
-    rescue PayPalHttp::HttpError => ioe
+      render json: { token: response.result.id }, status: :ok if order.save
+    rescue PayPalHttp::HttpError => e
       # HANDLE THE ERROR
     end
   end
 
   def capture_order
     # PAYPAL CAPTURE ORDER
-      request = PayPalCheckoutSdk::Orders::OrdersCaptureRequest::new params[:order_id]
+    request = PayPalCheckoutSdk::Orders::OrdersCaptureRequest.new params[:order_id]
     begin
       response = @client.execute request
-      order = Order.find_by :token => params[:order_id]
+      order = Order.find_by token: params[:order_id]
       order.paid = response.result.status == 'COMPLETED'
-      if order.save
-        return render :json => {:status => response.result.status}, :status => :ok
-      end
-    rescue PayPalHttp::HttpError => ioe
+      render json: { status: response.result.status }, status: :ok if order.save
+    rescue PayPalHttp::HttpError => e
       # HANDLE THE ERROR
     end
   end

@@ -17,24 +17,24 @@ class User < ApplicationRecord
   # end
 
   def self.from_omniauth(auth)
-    user = self.where(email:  auth.info.email).first
+    user = where(email: auth.info.email).first
     if user.present?
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
       user.image = auth.info.image
       user.save
-      self.add_provider(user, auth)
+      add_provider(user, auth)
     else
-      user = self.create(email: auth.info.email)
+      user = create(email: auth.info.email)
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
       user.image = auth.info.image
       user.save
-      self.add_provider(user, auth)
+      add_provider(user, auth)
     end
   end
 
   def self.add_provider(user, auth)
-    user.providers.find_or_create_by(provider_name: auth.provider , provider_uid: auth.uid)
+    user.providers.find_or_create_by(provider_name: auth.provider, provider_uid: auth.uid)
   end
 end

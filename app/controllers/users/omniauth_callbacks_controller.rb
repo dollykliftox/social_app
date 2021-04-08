@@ -5,7 +5,7 @@ module Users
     def facebook
       @provider = User.from_omniauth(request.env['omniauth.auth'])
       if @provider.persisted?
-        sign_in_and_redirect  @provider.user, event: :authentication
+        sign_in_and_redirect @provider.user, event: :authentication
         set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
       else
         session['devise.facebook_data'] = request.env['omniauth.auth']

@@ -8,14 +8,14 @@ Rails.application.routes.draw do
              }
   # # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # root 'homes#index'
-  root 'billings#index', as: :billing 
+  root 'billings#index', as: :billing
   get '/card/new' => 'billings#new_card', as: :add_payment_method
-  post "/card" => "billings#create_card", as: :create_payment_method
+  post '/card' => 'billings#create_card', as: :create_payment_method
   get '/success' => 'billings#success', as: :success
-  get '/orders', :to => 'orders#index'
-  post :create_order, :to => 'orders#create_order'
-  post :capture_order, :to => 'orders#capture_order'
+  get '/orders', to: 'orders#index'
+  post :create_order, to: 'orders#create_order'
+  post :capture_order, to: 'orders#capture_order'
   resources :charges
-  resources :coffee_roasts 
+  resources :coffee_roasts
   resources :posts
 end

@@ -311,7 +311,8 @@ Devise.setup do |config|
   config.omniauth :facebook, '2951322188430649', '6e65fe230ba10aa4b84ad1784ec54bb6', callback_url: 'http://localhost:3000/users/auth/facebook/callback'
   # config.omniauth :facebook, "271507683624026", "99086c6f7716f602aa051a3795ba0021", scope: 'email'#, callback_url: "http://localhost:3000/users/auth/facebook/callback"
   # config.omniauth :google_oauth2, ENV['GOOGLE_APP_ID'], ENV['GOOGLE_APP_SECRET'], scope: 'userinfo.email,userinfo.profile'
-  config.omniauth :google_oauth2, '1069096054123-935p1n7qpkg1kgvqg82nv8rlukslv45v.apps.googleusercontent.com', 'hVOXARh_XxROnwACyod0akm0'
-  
-  config.omniauth :linkedin, ENV['LINKEDIN_CLIENT_ID'],  ENV['LINKEDIN_CLIENT_SECRET'], secure_image_url: true
+  config.omniauth :google_oauth2, '1069096054123-935p1n7qpkg1kgvqg82nv8rlukslv45v.apps.googleusercontent.com',
+                  'hVOXARh_XxROnwACyod0akm0'
+
+  config.omniauth :linkedin, ENV['LINKEDIN_CLIENT_ID'], ENV['LINKEDIN_CLIENT_SECRET'], secure_image_url: true
 end

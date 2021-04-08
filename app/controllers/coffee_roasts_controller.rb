@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CoffeeRoastsController < ApplicationController
   def index
-    @coffee_roasts = CoffeeRoast.all  
+    @coffee_roasts = CoffeeRoast.all
   end
 
   # POST /coffee_roasts
@@ -33,6 +35,6 @@ class CoffeeRoastsController < ApplicationController
   private
 
   def coffee_roast_params
-    params.permit(:roast_name , :roast_description)
+    params.permit(:roast_name, :roast_description)
   end
 end
